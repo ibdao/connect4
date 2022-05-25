@@ -18,15 +18,16 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
  */
 
 function makeBoard() {
+  debugger;
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   // rows = height
   // length of rows = width
   // place all of these into a board
-  let row = [];
-  for(let j = 0; j < WIDTH; j++){
-      row.push(null);
-  }
   for (let i = 0; i < HEIGHT; i++){
+    let row = [];
+    for(let j = 0; j < WIDTH; j++){
+        row.push(null);
+    }
     board.push(row);
   }
 }
