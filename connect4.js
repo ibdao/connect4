@@ -59,6 +59,7 @@ function makeHtmlBoard() {
     for (let x = 0; x < WIDTH; x++) {
       // TODO: Create a table cell element and assign to a "cell" variable
       let cell = document.createElement("td");
+  
       // TODO: add an id, y-x, to the above table cell element
       // you'll use this later, so make sure you use y-x
       cell.id = `${y}-${x}`;
@@ -82,10 +83,8 @@ function findSpotForCol(x) {
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
   let coord = document.createElement('div');
-  coord.classList.add("piece", "player-1");
-  coord.id = "";
   document.getElementById(`${y}-${x}`).append(coord);
-
+  return coord;
 }
 
 /** endGame: announce game end */
@@ -107,8 +106,9 @@ function handleClick(evt) {
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update in-memory board
-  placeInTable(y, x);
+  let pieceToUpdate = placeInTable(y, x);
+  pieceToUpdate.classList.add("piece", `player-${currPlayer}`);
+  pieceToUpdate.id = "";
 
   // check for win
   if (checkForWin()) {
@@ -117,7 +117,10 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-
+  let currhtmlBoard = document.getElementsByTagName('tr');
+  currhtmlBoard = Array.from(currhtmlBoard).slice(1);
+  htmlToArr = currhtmlBoard.map(tr => Array.from(tr.getElementsByTagName('td')));
+  htmlToArr.every(row => row.every(cell => cell.innerHTML !== ''));
   // switch players
   // TODO: switch currPlayer 1 <-> 2
   if (currPlayer % 2 === 0)
