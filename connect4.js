@@ -18,7 +18,7 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
  */
 
 function makeBoard() {
-  debugger;
+
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   // rows = height
   // length of rows = width
@@ -35,7 +35,7 @@ function makeBoard() {
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
-  debugger;
+
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
   let htmlBoard = document.getElementById("board");
   // Creates the buttons to drop pieces on top of the HTML board
@@ -81,7 +81,11 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
-  document.getElementById(`${y}-${x}`).createElement('div');
+  let coord = document.createElement('div');
+  coord.classList.add("piece", "player-1");
+  coord.id = "";
+  document.getElementById(`${y}-${x}`).append(coord);
+
 }
 
 /** endGame: announce game end */
@@ -116,6 +120,9 @@ function handleClick(evt) {
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  if (currPlayer % 2 === 0)
+    currPlayer = 1;
+    currPlayer = 2;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
