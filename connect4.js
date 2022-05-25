@@ -81,6 +81,7 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  document.getElementById(`${y}-${x}`).createElement('div');
 }
 
 /** endGame: announce game end */
