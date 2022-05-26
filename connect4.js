@@ -23,10 +23,10 @@ function makeBoard() {
   // rows = height
   // length of rows = width
   // place all of these into a board
-  for (let i = 0; i < HEIGHT; i++){
+  for (let i = 0; i < HEIGHT; i++) {
     let row = [];
-    for(let j = 0; j < WIDTH; j++){
-        row.push(null);
+    for (let j = 0; j < WIDTH; j++) {
+      row.push(null);
     }
     board.push(row);
   }
@@ -59,7 +59,7 @@ function makeHtmlBoard() {
     for (let x = 0; x < WIDTH; x++) {
       // TODO: Create a table cell element and assign to a "cell" variable
       let cell = document.createElement("td");
-  
+
       // TODO: add an id, y-x, to the above table cell element
       // you'll use this later, so make sure you use y-x
       cell.id = `${y}-${x}`;
@@ -78,8 +78,8 @@ function findSpotForCol(x) {
   // x is column
   // y is row
   let y = HEIGHT - 1;
-  for (let i = y; i >= 0; i--){
-    if (document.getElementById(`${i}-${x}`).innerHTML === ""){
+  for (let i = y; i >= 0; i--) {
+    if (document.getElementById(`${i}-${x}`).innerHTML === "") {
       return i;
     }
   }
@@ -116,7 +116,7 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   let pieceToUpdate = placeInTable(y, x);
   pieceToUpdate.classList.add("piece", `player-${currPlayer}`);
-  //pieceToUpdate.id = "";
+  pieceToUpdate.id = `player-${currPlayer}`;
 
 
   // check for win
@@ -130,11 +130,11 @@ function handleClick(evt) {
   let htmlToArr = currhtmlBoard.map(tr => Array.from(tr.getElementsByTagName('td')));
   let tie = htmlToArr.every(row => row.every(cell => cell.innerHTML !== ''));
   if (tie) endGame();
-  
+
   // switch players
-  if (currPlayer % 2 === 0){
+  if (currPlayer % 2 === 0) {
     currPlayer = 1;
-  }else{
+  } else {
     currPlayer = 2;
   }
 }
@@ -152,7 +152,12 @@ function checkForWin() {
 
     // TODO: Check four cells to see if they're all legal & all color of current
     // player
-
+    cells.every(cell => cell[0] > HEIGHT && cell[0] >= 0);
+    cells.every(cell => cell[1] > WIDTH && cell[1] >= 0);
+    // Not working yet
+    // let id = cells[0].join('-');
+    // let winningPlayer = document.getElementById(id).getElementsByClassName('piece').id;
+    // cells.every(cell => cell[1] > WIDTH && cell[1] >= 0);
   }
 
   // using HEIGHT and WIDTH, generate "check list" of coordinates
@@ -166,10 +171,9 @@ function checkForWin() {
       // [ [y, x], [y, x], [y, x], [y, x] ]
 
       let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-      let vert;
-      let diagDL;
-      let diagDR;
-
+      let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
+      let diagDL = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
+      let diagDR = [[y, x], [y - 1, x - 1], [y - 2, x - 2], [y - 3, x - 3]];
       // find winner (only checking each win-possibility as needed)
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
