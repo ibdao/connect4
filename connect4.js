@@ -75,7 +75,15 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 5
-  return 5;
+  // x is column
+  // y is row
+  let y = HEIGHT - 1;
+  for (let i = y; i >= 0; i--){
+    if (document.getElementById(`${i}-${x}`).innerHTML === ""){
+      return i;
+    }
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -108,7 +116,8 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   let pieceToUpdate = placeInTable(y, x);
   pieceToUpdate.classList.add("piece", `player-${currPlayer}`);
-  pieceToUpdate.id = "";
+  //pieceToUpdate.id = "";
+
 
   // check for win
   if (checkForWin()) {
@@ -116,16 +125,18 @@ function handleClick(evt) {
   }
 
   // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
   let currhtmlBoard = document.getElementsByTagName('tr');
   currhtmlBoard = Array.from(currhtmlBoard).slice(1);
-  htmlToArr = currhtmlBoard.map(tr => Array.from(tr.getElementsByTagName('td')));
-  htmlToArr.every(row => row.every(cell => cell.innerHTML !== ''));
+  let htmlToArr = currhtmlBoard.map(tr => Array.from(tr.getElementsByTagName('td')));
+  let tie = htmlToArr.every(row => row.every(cell => cell.innerHTML !== ''));
+  if (tie) endGame();
+  
   // switch players
-  // TODO: switch currPlayer 1 <-> 2
-  if (currPlayer % 2 === 0)
+  if (currPlayer % 2 === 0){
     currPlayer = 1;
+  }else{
     currPlayer = 2;
+  }
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
