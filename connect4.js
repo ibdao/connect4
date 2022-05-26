@@ -18,11 +18,6 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
  */
 
 function makeBoard() {
-
-  // TODO: set "board" to empty HEIGHT x WIDTH matrix array
-  // rows = height
-  // length of rows = width
-  // place all of these into a board
   for (let i = 0; i < HEIGHT; i++) {
     let row = [];
     for (let j = 0; j < WIDTH; j++) {
@@ -35,13 +30,13 @@ function makeBoard() {
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
-
-  // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
   let htmlBoard = document.getElementById("board");
+
   // Creates the buttons to drop pieces on top of the HTML board
   let top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
+
   // Creates the visible cells to drop the pieces. 
   for (let x = 0; x < WIDTH; x++) {
     let headCell = document.createElement("td");
@@ -54,19 +49,14 @@ function makeHtmlBoard() {
   // uses HEIGHT to create table rows
   // uses WIDTH to create table cells for each row
   for (let y = 0; y < HEIGHT; y++) {
-    // TODO: Create a table row element and assign to a "row" variable
     let row = document.createElement("tr");
     for (let x = 0; x < WIDTH; x++) {
-      // TODO: Create a table cell element and assign to a "cell" variable
       let cell = document.createElement("td");
-
-      // TODO: add an id, y-x, to the above table cell element
+      
       // you'll use this later, so make sure you use y-x
       cell.id = `${y}-${x}`;
-      // TODO: append the table cell to the table row
       row.append(cell);
     }
-    // TODO: append the row to the html board
     htmlBoard.append(row);
   }
 }
@@ -74,7 +64,6 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return bottom empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 5
   // x is column
   // y is row
   let y = HEIGHT - 1;
@@ -89,7 +78,6 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
   let coord = document.createElement('div');
   document.getElementById(`${y}-${x}`).append(coord);
   return coord;
